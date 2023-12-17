@@ -1,0 +1,28 @@
+sudo apt-get install libpam-pwquality -y
+
+/etc/security/pwquality.conf
+
+minlen=15
+
+#Configure the Ubuntu operating system to prevent the use of dictionary words for passwords.
+
+dictcheck=1
+
+Add the following line to "/etc/security/pwquality.conf":
+
+enforcing = 1
+
+#require uppercase
+ucredit=-1
+#require lowercase
+lcredit=-1
+#require number
+dcredit=-1
+#Special Character
+ocredit=-1
+#at least 8 chr changes when update
+difok=8
+
+Add the following line to "/etc/pam.d/common-password":
+
+password requisite pam_pwquality.so retry=3

@@ -1,0 +1,79 @@
+
+##sudo auditd -s enable
+##sudo systemctl enable auditd.service
+##sudo systemctl stop motion
+##sudo systemctl disable motion
+Create /etc/pam_pkcs11/pam_pkcs11.conf from "/usr/share/doc/libpam-pkcs11/examples/pam_pkcs11.conf.example"
+## sudo cp /usr/share/doc/libpam-pkcs11/examples/pam_pkcs11.conf.example /etc/pam_pkcs11/pam_pkcs11.conf
+##sudo nano /etc/audit/rules.d/stig.rules
+create/copy/paste audit rules.txt
+##sudo augenrules --load
+##sudo chmod -R 0640 /etc/audit/rules.d
+##sudo aideinit
+##sudo useradd -D -f 35
+##sudo nano /etc/sysctl.conf
+uncomment net.ipv4.tcp_syncookies = 1
+##sudo nano /etc/login.defs
+UMASK 077
++++++Remove any occurrence of "NOPASSWD" or "!authenticate" found in "/etc/sudoers" file or files in the "/etc/sudoers.d" directory.
+##sudo nano /etc/sudoers.d/010_pi-nopasswd
+##sudo nano /etc/ssh/sshd_config
+PermitEmptyPasswords no
+PermitUserEnvironment no
+ClientAliveCountMax 1
+ClientAliveInterval 600
+X11UseLocalhost yes
+X11Forwarding no
+PubkeyAuthentication yes
+AuthorizedKeysFile      .ssh/authorized_keys .ssh/authorized_keys2
+##mkdir ~/.ssh
+##sudo nano ~/.ssh/authorized_keys
+copy key into file
+##sudo systemctl restart sshd.service
+##sudo nano /etc/pam.d/login
+session required pam_lastlog.so showfailed
+##sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+Unattended-Upgrade::Remove-Unused-Kernel-Packages "true";
+##sudo find /var/log -perm /137 ! -name '*[bw]tmp' ! -name '*lastlog' -type f -exec chmod 640 '{}' \;
+
+##sudo curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+##sudo python2 get-pip.py
+## sudo apt install python-dev-is-python2 python-setuptools libssl-dev libcurl4-openssl-dev libjpeg-dev zlib1g-dev libffi-dev libzbar-dev libzbar0 -y
+##sudo pip install motioneye
+##sudo mkdir -p /etc/motioneye
+##sudo cp /usr/local/share/motioneye/extra/motioneye.conf.sample /etc/motioneye/motioneye.conf
+##sudo mkdir -p /var/lib/motioneye
+##sudo cp /usr/local/share/motioneye/extra/motioneye.systemd-unit-local /etc/systemd/system/motioneye.service
+##sudo systemctl daemon-reload
+##sudo systemctl enable motioneye
+##sudo systemctl start motioneye
+
+##sudo nano /etc/security/limits.conf
+* hard maxlogins 10
+++##sudo nano /etc/chrony/chrony.conf
+makestep 1 -1
+++sudo nano /etc/pam.d/common-auth
+Add the following lines below the "auth" definition for pam_unix.so:
+auth	[default=die]		pam_faillock.so authfail
+auth	sufficient		pam_faillock.so authsucc
+auth	required		pam_faildelay.so delay=4000000
+++sudo nano /etc/security/faillock.conf
+audit
+silent
+deny = 3
+fail_interval = 900
+unlock_time = 0
+++sudo nano /etc/pam_pkcs11/pam_pkcs11.conf
+add crl_auto
+Configure the Ubuntu operating system to do certificate status checking for multifactor authentication.
+
+Modify all of the "cert_policy" lines in "/etc/pam_pkcs11/pam_pkcs11.conf" to include "ocsp_on".
+
+++>>sudo nano /etc/security/pwquality.conf
+review PWQuality.txt
+++>>sudo nano /etc/login.defs
+PASS_MIN_DAYS 1
+PASS_MAX_DAYS 60
+
+

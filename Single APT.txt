@@ -1,0 +1,24 @@
+##sudo nano /boot/config.txt
+add dtoverlay=imx219 v2 Camera
+add dtoverlay=imx477 HQ Camera
+add dtoverlay=imx296 GS Camera
+add dtoverlay=imx708 Cammera Module 3
+##sudo apt install -y opensc
+##sudo apt install libpam-pkcs11
+##sudo apt install auditd
+##sudo apt install ufw
+##sudo apt install libpam-pwquality -y
+##sudo apt install apparmor
+##sudo apt install chrony
+
+##sudo apt install opensc libpam-pkcs11 auditd ufw libpam-pwquality apparmor vlock aide chrony -y
+
+
+Motion
+
+ no--##sudo apt install ffmpeg libmariadb3 libpq5 libmicrohttpd12 -y
+
+##sudo apt install motion ffmpeg v4l-utils -y
+##sudo apt install python2 python-pip -y
+##sudo apt update
+Sudo apt upgrade if needed
