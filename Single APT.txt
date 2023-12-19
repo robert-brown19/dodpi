@@ -19,6 +19,6 @@ Motion
  no--##sudo apt install ffmpeg libmariadb3 libpq5 libmicrohttpd12 -y
 
 ##sudo apt install motion ffmpeg v4l-utils -y
-##sudo apt install python2 python-pip -y
+skip ##sudo apt install python2 python-pip -y
 ##sudo apt update
 Sudo apt upgrade if needed
